@@ -5,6 +5,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import config  from '@nlxi/app-module/config';
 import { LoggerModule } from 'nestjs-pino';
 import { buildLoggerOptions}  from '@nlxi/app-module/config/logger.config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { buildOrmConfig } from '@nlxi/app-module/config/orm.config';
+
 
 
 
@@ -19,13 +22,20 @@ import { buildLoggerOptions}  from '@nlxi/app-module/config/logger.config';
       load: [config],
     }),
     LoggerModule.forRootAsync({
-   imports: [ConfigModule],
+      imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => {
-        console.log('!!!', configService.get('env'));
         return buildLoggerOptions({ env: configService.get('env')});
       },
     }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => {
+        return buildOrmConfig(configService.get('db'));
+      }
+    })
+
 
   ],
   controllers: [AppController],

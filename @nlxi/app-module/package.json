@@ -11,7 +11,7 @@
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "NODE_OPTIONS='--experimental-specifier-resolution=node' nest start",
-    "start:dev":  "NODE_OPTIONS='--experimental-specifier-resolution=node' nest start --watch",
+    "start:dev": "NODE_OPTIONS='--experimental-specifier-resolution=node' nest start --watch",
     "start:debug": "NODE_OPTIONS='--experimental-specifier-resolution=node' nest start --debug --watch",
     "start:prod": "NODE_OPTIONS='--experimental-specifier-resolution=node' node build/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
@@ -26,13 +26,16 @@
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/typeorm": "^9.0.1",
     "nanoid": "^4.0.0",
     "nestjs-pino": "^3.1.1",
+    "pg": "^8.8.0",
     "pino-http": "^8.2.1",
     "pino-pretty": "^9.1.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "typeorm": "^0.3.10"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",
