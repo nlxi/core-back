@@ -10,6 +10,12 @@ const factory = () => ({
     password:  process.env.DB_PASSWORD || 'pgpass',
     database:  process.env.DB_DATABASE || 'app',
     ssl: !!process.env.DB_SSL,
+  },
+  redis: {
+    config: {
+      host: process.env.REDIS_HOST || 'localhost',
+      port: process.env.REDIS_PORT || 6379,
+    }
   }
 });
 

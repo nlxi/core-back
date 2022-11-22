@@ -7,6 +7,7 @@ import { LoggerModule } from 'nestjs-pino';
 import { buildLoggerOptions}  from '@nlxi/app-module/config/logger.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { buildOrmConfig } from '@nlxi/app-module/config/orm.config';
+import { RedisModule } from '@liaoliaots/nestjs-redis';
 
 
 
@@ -34,9 +35,12 @@ import { buildOrmConfig } from '@nlxi/app-module/config/orm.config';
       useFactory: async (configService: ConfigService) => {
         return buildOrmConfig(configService.get('db'));
       }
-    })
-
-
+    }),
+    RedisModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => configService.get('redis'),
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
