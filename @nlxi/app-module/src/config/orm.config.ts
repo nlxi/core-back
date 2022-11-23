@@ -1,3 +1,5 @@
+import path from 'path';
+import {fileURLToPath} from 'url';
 export interface DBConfig {
   host: string;
   port: string;
@@ -12,7 +14,11 @@ interface PGOpts  {
   [key: string]: any
 }
 
+
 export const buildOrmConfig = (config:DBConfig): PGOpts => {
+   const __filename = fileURLToPath(import.meta.url);
+   const __dirname = path.dirname(__filename);
+
   const result: PGOpts = {
     type: 'postgres',
     ...config,
@@ -20,13 +26,15 @@ export const buildOrmConfig = (config:DBConfig): PGOpts => {
     //logging: ['error', 'warn'],
     logging: 'all',
     maxQueryExecutionTime: 1000,
-    entities:[],
-    migrations: [],
+    entities: [
+      __dirname + '/../**/Entity/**/!(*.spec).{ts,js}',
+    ],
+    migrations: [__dirname + '/../migration/**/*.{ts,js}'],
     subscribers: [],
     useUTC: true,
     cli: {
+       migrationsDir: "src/migration",
       // entitiesDir: 'src/entity',
-      // migrationsDir: 'src/migration',
       // subscribersDir: 'src/subscriber',
     },
     logNotifications: true,

@@ -7,12 +7,13 @@
     "allowSyntheticDefaultImports": true,
     "lib": ["esnext"],
     "target": "esnext",
-      "module": "esnext",
+    "module": "node16",
     "esModuleInterop": true,
-    "moduleResolution": "node",
+    "moduleResolution": "node16",
+    "isolatedModules": false,
     "sourceMap": true,
     "outDir": "./build",
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,
@@ -24,14 +25,12 @@
     "allowJs": true,
     "checkJs": false,
     "paths": {
-      "@nlxi/app-module/*": ["./src/*"],
-      "@nlxi/*": ["../*"],
-      "*": ["../../node_modules/*", "./node_modules/*"]
+      "#root/*": ["./*"]
     }
   },
   "include": ["src/**/*"],
   "exclude": [
       "*/node_modules/**",
-      "**/*.spec.ts",
+      "**/*.spec.ts"
   ]
 }
