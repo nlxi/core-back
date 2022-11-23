@@ -9,7 +9,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { buildOrmConfig } from '#root/config/orm.config.js';
 import { RedisModule } from '@liaoliaots/nestjs-redis';
 import { Foo } from './Entity/Foo.js';
-import { ExampleRedis } from './ExampleRedis/index.js';
+import { ExampleRedisModule } from '#root/ExampleRedisModule/index.js';
 
 
 @Module({
@@ -38,7 +38,7 @@ import { ExampleRedis } from './ExampleRedis/index.js';
       useFactory: (configService: ConfigService) => configService.get('redis'),
     }),
     TypeOrmModule.forFeature([Foo]),
-    ExampleRedis,
+    ExampleRedisModule,
   ],
   controllers: [AppController],
   providers: [AppService],
