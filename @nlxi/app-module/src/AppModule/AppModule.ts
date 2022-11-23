@@ -8,6 +8,7 @@ import { buildLoggerOptions}  from '@nlxi/app-module/config/logger.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { buildOrmConfig } from '@nlxi/app-module/config/orm.config';
 import { RedisModule } from '@liaoliaots/nestjs-redis';
+import { ExampleRedis } from './ExampleRedis';
 
 
 
@@ -41,6 +42,7 @@ import { RedisModule } from '@liaoliaots/nestjs-redis';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => configService.get('redis'),
     }),
+    ExampleRedis,
   ],
   controllers: [AppController],
   providers: [AppService],
