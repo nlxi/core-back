@@ -35,6 +35,8 @@ services:
   redis:
     container_name: redis_core
     image: redis
+    command: >
+      --requirepass foobar
     volumes:
       - ./docker_data/redis:/data
     ports:
