@@ -7,7 +7,7 @@ import { Logger } from 'nestjs-pino';
 @Injectable()
 export class TestService {
   constructor(
-    @InjectRedis() private readonly redis: Redis
+    @InjectRedis() private readonly redis: Redis.default
   ) { }
 
   async readRedis(key: string) {

@@ -9,7 +9,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { buildOrmConfig } from '#root/config/orm.config.js';
 import { RedisModule } from '@liaoliaots/nestjs-redis';
 import { Foo } from './Entity/Foo.js';
-import { ExampleRedis } from './ExampleRedis';
+import { ExampleRedis } from './ExampleRedis/index.js';
 
 
 @Module({
