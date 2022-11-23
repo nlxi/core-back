@@ -9,14 +9,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { buildOrmConfig } from '#root/config/orm.config.js';
 import { RedisModule } from '@liaoliaots/nestjs-redis';
 import { Foo } from './Entity/Foo.js';
+import { ExampleRedis } from './ExampleRedis';
 
 
-
-
-/*
- *
- * https://trilon.io/blog/announcing-nestjs-8-whats-new#Template-literal-types-and-ConfigService
- * */
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -42,8 +37,8 @@ import { Foo } from './Entity/Foo.js';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => configService.get('redis'),
     }),
-    TypeOrmModule.forFeature([Foo])
-
+    TypeOrmModule.forFeature([Foo]),
+    ExampleRedis,
   ],
   controllers: [AppController],
   providers: [AppService],
