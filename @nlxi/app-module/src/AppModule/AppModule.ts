@@ -10,6 +10,11 @@ import { buildOrmConfig } from '#root/config/orm.config.js';
 import { RedisModule } from '@liaoliaots/nestjs-redis';
 import { Foo } from './Entity/Foo.js';
 import { ExampleRedisModule } from '#root/ExampleRedisModule/index.js';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
+import { FooResolver } from './Resolver/FooResolver.js';
+
 
 
 @Module({
@@ -21,26 +26,52 @@ import { ExampleRedisModule } from '#root/ExampleRedisModule/index.js';
     LoggerModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => {
+      useFactory: (configService: ConfigService) => {
         return buildLoggerOptions({ env: configService.get('env')});
       },
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => {
+      useFactory:  (configService: ConfigService) => {
         return buildOrmConfig(configService.get('db'));
       }
     }),
     RedisModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService: ConfigService) => configService.get('redis'),
+      useFactory: (configService: ConfigService) =>({config: configService.get('redis')})
     }),
     TypeOrmModule.forFeature([Foo]),
+    GraphQLModule.forRootAsync<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => {
+        const base = {
+          autoSchemaFile: true,
+          sortSchema: true,
+          playground: false,
+          plugins: [ApolloServerPluginLandingPageLocalDefault()],
+
+        }
+        let prodConfig ={};
+        if (configService.get('env') === 'production') {
+           prodConfig = {
+             debug: false,
+             plugins: []
+           }
+        }
+        return {
+          ...base,
+          ...prodConfig,
+        }
+
+      }
+    }),
     ExampleRedisModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, FooResolver],
 })
 export class AppModule {}
