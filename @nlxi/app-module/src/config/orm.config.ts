@@ -1,5 +1,5 @@
 import path from 'path';
-import {fileURLToPath} from 'url';
+import { fileURLToPath } from 'url';
 
 export interface DBConfig {
   host: string;
@@ -10,15 +10,14 @@ export interface DBConfig {
   ssl: boolean;
 }
 
-interface PGOpts  {
-  readonly type: "postgres";
-  [key: string]: any
+interface PGOpts {
+  readonly type: 'postgres';
+  [key: string]: any;
 }
 
-
-export const buildOrmConfig = (config:DBConfig): PGOpts => {
-   const filename = fileURLToPath(import.meta.url);
-   const dirname = path.dirname(filename);
+export const buildOrmConfig = (config: DBConfig): PGOpts => {
+  const filename = fileURLToPath(import.meta.url);
+  const dirname = path.dirname(filename);
 
   const result: PGOpts = {
     type: 'postgres',
@@ -27,14 +26,12 @@ export const buildOrmConfig = (config:DBConfig): PGOpts => {
     // logging: ['error', 'warn'],
     logging: 'all',
     maxQueryExecutionTime: 1000,
-    entities: [
-      `${dirname}/../**/Entity/**/!(*.spec).{ts,js}`,
-    ],
+    entities: [`${dirname}/../**/Entity/**/!(*.spec).{ts,js}`],
     migrations: [`${dirname}/../migration/**/*.{ts,js}`],
     subscribers: [],
     useUTC: true,
     cli: {
-       migrationsDir: "src/migration",
+      migrationsDir: 'src/migration',
       // entitiesDir: 'src/entity',
       // subscribersDir: 'src/subscriber',
     },
@@ -43,12 +40,12 @@ export const buildOrmConfig = (config:DBConfig): PGOpts => {
   };
 
   if (config.ssl) {
-    result.extra =  {
+    result.extra = {
       ...result.extra,
       ssl: {
         rejectUnauthorized: false,
       },
-    }
+    };
   }
   return result;
 };
