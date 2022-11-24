@@ -1,4 +1,3 @@
-
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -10,6 +9,7 @@ export class AppService {
     @InjectRepository(Foo)
     private repo: Repository<Foo>,
   ) {}
+
   async getHello(): Promise<string> {
     const count = await this.repo.count();
     return `Hello with ${count}`;

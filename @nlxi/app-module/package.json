@@ -32,6 +32,7 @@
     "@nestjs/platform-express": "^9.2.0",
     "@nestjs/typeorm": "^9.0.1",
     "@types/ioredis": "^5.0.0",
+    "apollo-server-core": "^3.11.1",
     "apollo-server-express": "^3.11.1",
     "graphql": "^16.6.0",
     "ioredis": "^5.2.4",
@@ -39,6 +40,7 @@
     "nanoid": "^4.0.0",
     "nestjs-pino": "^3.1.1",
     "pg": "^8.8.0",
+    "pino": "^8.7.0",
     "pino-http": "^8.2.1",
     "pino-pretty": "^9.1.1",
     "reflect-metadata": "^0.1.13",
@@ -57,7 +59,9 @@
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "eslint": "^8.0.1",
-    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.2.5",
     "prettier": "^2.3.2",
@@ -79,13 +83,25 @@
     "rootDir": "src",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
+      "^.+\\.(t|j)s$": [
+        "ts-jest",
+       {
+        "useESM": true
+       }
+      ]
     },
     "collectCoverageFrom": [
       "**/*.(t|j)s"
     ],
+  "preset": "ts-jest/presets/default-esm",
+
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+  "moduleNameMapper": {
+    "^(\\.{1,2}/.*)\\.js$": "$1"
+    },
+    "extensionsToTreatAsEsm": [".ts"]
+
   },
   "imports": {
     "#root/*": "./build/*"
