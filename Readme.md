@@ -1,4 +1,5 @@
 # Base stack from web development
+[![Node.js CI](https://github.com/nlxi/core-back/actions/workflows/node.js.yml/badge.svg?branch=master)](https://github.com/nlxi/core-back/actions/workflows/node.js.yml)
 
 
 ## Usage
