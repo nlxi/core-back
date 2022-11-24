@@ -26,6 +26,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - run: npm ci
     - run: npx -w @nlxi/app-module eslint --max-warnings 0 "{src,apps,libs,test}/**/*.{j,t}s"
     - run: npx -w @nlxi/app-module prettier -c "{src,apps,libs,test}/**/*.{j,t}s"
     - run: ./runIn.sh build 
