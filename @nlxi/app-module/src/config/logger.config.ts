@@ -1,9 +1,10 @@
 import type { Request } from 'express';
 import type { IncomingMessage } from 'http';
-const {nanoid} =await import('nanoid');
 import type { Params } from 'nestjs-pino';
 import { multistream } from 'pino';
 import type { ReqId } from 'pino-http';
+
+const {nanoid} =await import('nanoid');
 
 
 

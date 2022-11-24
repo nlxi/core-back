@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './AppModule/AppModule.js';
 import { ConfigService } from '@nestjs/config';
-import  type { ConfigType } from './config/index.js';
 import { Logger, LoggerErrorInterceptor } from 'nestjs-pino';
+import { AppModule } from './AppModule/AppModule.js';
+import  type { ConfigType } from './config/index.js';
 
 
 

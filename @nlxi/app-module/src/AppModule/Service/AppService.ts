@@ -10,6 +10,7 @@ export class AppService {
     @InjectRepository(Foo)
     private repo: Repository<Foo>,
   ) {}
+
   async getHello(): Promise<string> {
     const count = await this.repo.count();
     return `Hello with ${count}`;
