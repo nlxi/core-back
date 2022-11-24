@@ -14,7 +14,7 @@
     "start:dev": "NODE_OPTIONS='--experimental-specifier-resolution=node' nest start --watch",
     "start:debug": "NODE_OPTIONS='--experimental-specifier-resolution=node' nest start --debug --watch",
     "start:prod": "NODE_OPTIONS='--experimental-specifier-resolution=node' node build/main",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.{j,t}s\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
@@ -34,6 +34,7 @@
     "@types/ioredis": "^5.0.0",
     "apollo-server-core": "^3.11.1",
     "apollo-server-express": "^3.11.1",
+    "dotenv": "^16.0.3",
     "graphql": "^16.6.0",
     "ioredis": "^5.2.4",
     "module-alias": "^2.2.2",
@@ -85,23 +86,23 @@
     "transform": {
       "^.+\\.(t|j)s$": [
         "ts-jest",
-       {
-        "useESM": true
-       }
+        {
+          "useESM": true
+        }
       ]
     },
     "collectCoverageFrom": [
       "**/*.(t|j)s"
     ],
-  "preset": "ts-jest/presets/default-esm",
-
+    "preset": "ts-jest/presets/default-esm",
     "coverageDirectory": "../coverage",
     "testEnvironment": "node",
-  "moduleNameMapper": {
-    "^(\\.{1,2}/.*)\\.js$": "$1"
+    "moduleNameMapper": {
+      "^(\\.{1,2}/.*)\\.js$": "$1"
     },
-    "extensionsToTreatAsEsm": [".ts"]
-
+    "extensionsToTreatAsEsm": [
+      ".ts"
+    ]
   },
   "imports": {
     "#root/*": "./build/*"
