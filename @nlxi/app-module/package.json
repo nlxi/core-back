@@ -9,7 +9,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format": "prettier --write \"{src,apps,libs,test}/**/*.{j,t}s\"",
     "start": "nest start",
     "start:dev": "NODE_OPTIONS='--experimental-specifier-resolution=node' nest start --watch",
     "start:debug": "NODE_OPTIONS='--experimental-specifier-resolution=node' nest start --debug --watch",
