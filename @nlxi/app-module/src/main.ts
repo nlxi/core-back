@@ -12,6 +12,7 @@ async function bootstrap() {
   app.useLogger(app.get(Logger));
   app.useGlobalInterceptors(new LoggerErrorInterceptor());
 
+  app.enableShutdownHooks();
   await app.listen(configService.get('http').port);
 }
 
