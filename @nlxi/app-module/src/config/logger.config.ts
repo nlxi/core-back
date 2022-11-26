@@ -9,11 +9,14 @@ const { nanoid } = await import('nanoid');
 const passUrl = new Set(['/health', '/graphql']);
 
 type TBuildLoggerOptions = {
-  env: string,
-  lokiHostname: string,
-}
+  env: string;
+  lokiHostname: string;
+};
 
-export const buildLoggerOptions = ({ env, lokiHostname }: TBuildLoggerOptions): Params => ({
+export const buildLoggerOptions = ({
+  env,
+  lokiHostname,
+}: TBuildLoggerOptions): Params => ({
   pinoHttp: [
     {
       quietReqLogger: true,
@@ -26,8 +29,8 @@ export const buildLoggerOptions = ({ env, lokiHostname }: TBuildLoggerOptions): 
               target: 'pino-loki',
               options: {
                 host: lokiHostname,
-              }     
-            }
+              },
+            },
           }
         : {
             level: 'debug',
