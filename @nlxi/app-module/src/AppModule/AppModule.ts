@@ -14,6 +14,7 @@ import { buildOrmConfig } from '#root/config/orm.config.js';
 import { Foo } from './Entity/Foo.js';
 import { ExampleRedisModule } from '#root/ExampleRedisModule/index.js';
 import { FooResolver } from './Resolver/FooResolver.js';
+import { HealthModule } from '#root/HealthModule/index.js';
 
 @Module({
   imports: [
@@ -69,6 +70,7 @@ import { FooResolver } from './Resolver/FooResolver.js';
       },
     }),
     ExampleRedisModule,
+    HealthModule,
   ],
   controllers: [AppController],
   providers: [AppService, FooResolver],
