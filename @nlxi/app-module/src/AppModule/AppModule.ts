@@ -25,7 +25,10 @@ import { FooResolver } from './Resolver/FooResolver.js';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) =>
-        buildLoggerOptions({ env: configService.get('env') }),
+        buildLoggerOptions({
+          env: configService.get('env'),
+          lokiHostname: configService.get('lokiHostname'),
+        }),
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],

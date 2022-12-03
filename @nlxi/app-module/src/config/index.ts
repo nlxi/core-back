@@ -16,6 +16,7 @@ const factory = () => ({
     port: process.env.REDIS_PORT || 6379,
     password: 'foobar',
   },
+  lokiHostname: process.env.LOKI_HOSTNAME || 'http://localhost:3100',
 });
 
 export default factory;

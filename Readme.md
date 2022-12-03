@@ -28,3 +28,12 @@ npm run start
 ./runIn.sh build
 ```
 
+### loki
+
+- open [http://localhost:8093/](http://localhost:8093/)
+- `admin/admin` are credentials. Change the password on next stage or keep the same
+- open [Data sources](http://localhost:8093/datasources/new?utm_source=grafana_gettingstarted)
+- choose `Loki`
+- set URL `http://loki:3100`
+- click `Save & test`
+- make a query e.g. `{level="info"} | json | context="GraphQLModule"`
