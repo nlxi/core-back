@@ -10,7 +10,7 @@ import { AppController } from './Controller/AppController.js';
 import { AppService } from './Service/AppService.js';
 import config from '#root/config/index.js';
 import { buildLoggerOptions } from '#root/config/logger.config.js';
-import { buildOrmConfig } from '#root/config/orm.config.js';
+import { buildOrmConfig, TypeormLogger } from '#root/config/orm.config.js';
 import { Foo } from './Entity/Foo.js';
 import { ExampleRedisModule } from '#root/ExampleRedisModule/index.js';
 import { FooResolver } from './Resolver/FooResolver.js';
@@ -33,9 +33,13 @@ import { HealthModule } from '#root/HealthModule/HealthModule.js';
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) =>
-        buildOrmConfig(configService.get('db')),
+      inject: [ConfigService, TypeormLogger],
+      useFactory: (configService: ConfigService, logger: TypeormLogger) =>
+        buildOrmConfig({
+          ...configService.get('db'),
+          logger,
+        }),
+      extraProviders: [TypeormLogger],
     }),
     RedisModule.forRootAsync({
       imports: [ConfigModule],

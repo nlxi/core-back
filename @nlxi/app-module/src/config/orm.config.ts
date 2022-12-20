@@ -1,30 +1,56 @@
 import path from 'path';
+import { DataSourceOptions , Logger } from 'typeorm';
 import { fileURLToPath } from 'url';
+import { Injectable } from '@nestjs/common';
+import { InjectPinoLogger, PinoLogger } from 'nestjs-pino';
 
-export interface DBConfig {
-  host: string;
-  port: string;
-  username: string;
-  password: string;
-  database: string;
-  ssl: boolean;
+@Injectable()
+export class TypeormLogger implements Logger {
+  constructor(
+    @InjectPinoLogger(TypeormLogger.name)
+    private logger: PinoLogger,
+  ) {}
+
+  logQuery(query: string, parameters: any[] = []): void {
+    this.logger.info({ query, parameters });
+  }
+
+  logQueryError(error: string, query: string, parameters: any[] = []): void {
+    this.logger.info({ query, parameters, error });
+  }
+
+  logQuerySlow(duration: number, query: string, parameters: any[] = []): void {
+    this.logger.info({ query, parameters, duration });
+  }
+
+  logSchemaBuild(message: string): void {
+    this.logger.debug(message);
+  }
+
+  logMigration(message: string): void {
+    this.logger.info(message);
+  }
+
+  log(level: 'log' | 'info' | 'warn', message: any): void {
+    if (level === 'warn') {
+      this.logger.warn(message);
+    } else {
+      this.logger.info(message);
+    }
+  }
 }
 
-interface PGOpts {
-  readonly type: 'postgres';
-  [key: string]: any;
-}
-
-export const buildOrmConfig = (config: DBConfig): PGOpts => {
+export const buildOrmConfig = (
+  config: DataSourceOptions,
+): DataSourceOptions => {
   const filename = fileURLToPath(import.meta.url);
   const dirname = path.dirname(filename);
 
-  const result: PGOpts = {
+  const result = {
     type: 'postgres',
     ...config,
     synchronize: false,
-    // logging: ['error', 'warn'],
-    logging: 'all',
+    logging: true,
     maxQueryExecutionTime: 1000,
     entities: [`${dirname}/../**/Entity/**/!(*.spec).{ts,js}`],
     migrations: [`${dirname}/../migration/**/*.{ts,js}`],
@@ -39,13 +65,15 @@ export const buildOrmConfig = (config: DBConfig): PGOpts => {
     autoLoadEntities: false,
   };
 
-  if (config.ssl) {
-    result.extra = {
-      ...result.extra,
-      ssl: {
-        rejectUnauthorized: false,
-      },
-    };
+  if ('ssl' in config) {
+    if (config.ssl) {
+      result.extra = {
+        ...result.extra,
+        ssl: {
+          rejectUnauthorized: false,
+        },
+      };
+    }
   }
   return result;
 };
