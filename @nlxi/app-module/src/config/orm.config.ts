@@ -1,5 +1,5 @@
 import path from 'path';
-import { DataSourceOptions , Logger } from 'typeorm';
+import { DataSourceOptions, Logger } from 'typeorm';
 import { fileURLToPath } from 'url';
 import { Injectable } from '@nestjs/common';
 import { InjectPinoLogger, PinoLogger } from 'nestjs-pino';
