@@ -6,6 +6,7 @@ import { RedisModule } from '@liaoliaots/nestjs-redis';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
+import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
 import { AppController } from './Controller/AppController.js';
 import { AppService } from './Service/AppService.js';
 import config from '#root/config/index.js';
@@ -15,6 +16,9 @@ import { Foo } from './Entity/Foo.js';
 import { ExampleRedisModule } from '#root/ExampleRedisModule/index.js';
 import { FooResolver } from './Resolver/FooResolver.js';
 import { HealthModule } from '#root/HealthModule/HealthModule.js';
+import { buildRabbitMQConfig } from '#root/config/rabbitmq.config.js';
+import { NextPublishService } from './MQ/NextPublishService.js';
+import { CreateFooService } from './Service/CreateFooService.js';
 
 @Module({
   imports: [
@@ -30,6 +34,14 @@ import { HealthModule } from '#root/HealthModule/HealthModule.js';
           env: configService.get('env'),
           lokiHostname: configService.get('lokiHostname'),
         }),
+    }),
+    RabbitMQModule.forRootAsync(RabbitMQModule, {
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        uri: configService.get('rabbitMQUri'),
+        ...buildRabbitMQConfig(),
+      }),
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -77,6 +89,6 @@ import { HealthModule } from '#root/HealthModule/HealthModule.js';
     HealthModule,
   ],
   controllers: [AppController],
-  providers: [AppService, FooResolver],
+  providers: [AppService, FooResolver, NextPublishService, CreateFooService],
 })
 export class AppModule {}

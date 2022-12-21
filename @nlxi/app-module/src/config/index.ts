@@ -17,6 +17,7 @@ const factory = () => ({
     password: 'foobar',
   },
   lokiHostname: process.env.LOKI_HOSTNAME || 'http://localhost:3100',
+  rabbitMQUri: process.env.RABBITMQ_URI || 'amqp://guest:guest@localhost:5672',
 });
 
 export default factory;

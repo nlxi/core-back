@@ -73,6 +73,18 @@ services:
       - nlxi_core
     restart: unless-stopped
 
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    ports:
+      - "5672:5672"
+      - "8094:15672"
+    volumes:
+      - ./docker_data/rabbitmq/data/:/var/lib/rabbitmq/
+      - ./docker_data/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+      - nlxi_core
+    restart: unless-stopped
+
 networks:
   nlxi_core:
     driver: bridge
