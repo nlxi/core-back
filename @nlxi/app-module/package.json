@@ -23,6 +23,7 @@
     "typeorm": "./typeorm.sh"
   },
   "dependencies": {
+    "@golevelup/nestjs-rabbitmq": "^3.4.0",
     "@liaoliaots/nestjs-redis": "^9.0.4",
     "@nestjs/apollo": "^10.1.6",
     "@nestjs/common": "^9.2.0",
