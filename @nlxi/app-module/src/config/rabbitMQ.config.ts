@@ -1,14 +1,9 @@
 import {
-  RabbitRPC,
   RabbitMQChannels,
   RabbitMQExchangeConfig,
 } from '@golevelup/nestjs-rabbitmq';
 
-export interface RabbitMQExchangeConfigNext extends RabbitMQExchangeConfig {
-  name: 'exchange-1' | 'exchange-2';
-}
-
-const exchanges: RabbitMQExchangeConfigNext[] = [
+const exchanges: RabbitMQExchangeConfig[] = [
   {
     name: 'exchange-1',
     type: 'topic',
@@ -29,15 +24,3 @@ export const buildRabbitMQConfig = () => ({
   exchanges,
   channels,
 });
-
-type IRabbitRPC = Parameters<typeof RabbitRPC>[0] & {
-  exchange: RabbitMQExchangeConfigNext['name'];
-};
-
-export function RabbitRPCNext(config: IRabbitRPC) {
-  return RabbitRPC({
-    routingKey: 'rpc-route',
-    queue: 'rpc-queue',
-    ...config,
-  });
-}

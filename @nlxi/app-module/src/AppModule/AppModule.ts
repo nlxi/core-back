@@ -17,8 +17,8 @@ import { ExampleRedisModule } from '#root/ExampleRedisModule/index.js';
 import { FooResolver } from './Resolver/FooResolver.js';
 import { HealthModule } from '#root/HealthModule/HealthModule.js';
 import { buildRabbitMQConfig } from '#root/config/rabbitmq.config.js';
-import { NextPublishService } from './MQ/NextPublishService.js';
-import { CreateFooService } from './Service/CreateFooService.js';
+import { ExampleRabbitMQService } from './Service/ExampleRabbitMQService.js';
+import { FooRabbitMQResolver } from './Resolver/FooRabbitMQResolver.js';
 
 @Module({
   imports: [
@@ -89,6 +89,11 @@ import { CreateFooService } from './Service/CreateFooService.js';
     HealthModule,
   ],
   controllers: [AppController],
-  providers: [AppService, FooResolver, NextPublishService, CreateFooService],
+  providers: [
+    AppService,
+    FooResolver,
+    FooRabbitMQResolver,
+    ExampleRabbitMQService,
+  ],
 })
 export class AppModule {}
