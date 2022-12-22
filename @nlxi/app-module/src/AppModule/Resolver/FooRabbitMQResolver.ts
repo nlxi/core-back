@@ -1,37 +1,25 @@
-import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { CreateFooDto } from '../Dto/CreateFooDto.js';
+import { PublishRequestService } from '../Service/PublishRequestService.js';
 
 @Resolver()
 export class FooRabbitMQResolver {
-  constructor(private readonly amqpConnection: AmqpConnection) {}
+  constructor(private readonly publishRequestService: PublishRequestService) {}
 
   @Mutation(() => String)
   async createFoo(@Args('createFooDto') createFooDto: CreateFooDto) {
-    this.amqpConnection.publish<CreateFooDto>(
-      'exchange-1',
-      'CreateFooRabbitSubscribe-route',
-      createFooDto,
-    );
+    this.publishRequestService.createFoo(createFooDto);
     return 'ok';
   }
 
   @Query(() => Number)
   async getFooCount() {
-    return this.amqpConnection.request<number>({
-      exchange: 'exchange-1',
-      routingKey: 'GetFooCountRPC-route',
-      timeout: 10000,
-    });
+    return this.publishRequestService.getFooCount();
   }
 
   @Mutation(() => String)
   async createSayFoo(@Args('createFooDto') createFooDto: CreateFooDto) {
-    this.amqpConnection.publish<CreateFooDto>(
-      'exchange-1',
-      'CreateFooFirstHandlerRabbitSubscribe-route',
-      createFooDto,
-    );
+    this.publishRequestService.createSayFoo(createFooDto);
     return 'ok';
   }
 }

@@ -19,6 +19,7 @@ import { HealthModule } from '#root/HealthModule/HealthModule.js';
 import { buildRabbitMQConfig } from '#root/config/rabbitMQ.config.js';
 import { ExampleRabbitMQService } from './Service/ExampleRabbitMQService.js';
 import { FooRabbitMQResolver } from './Resolver/FooRabbitMQResolver.js';
+import { PublishRequestService } from './Service/PublishRequestService.js';
 
 @Module({
   imports: [
@@ -94,6 +95,7 @@ import { FooRabbitMQResolver } from './Resolver/FooRabbitMQResolver.js';
     FooResolver,
     FooRabbitMQResolver,
     ExampleRabbitMQService,
+    PublishRequestService,
   ],
 })
 export class AppModule {}
