@@ -16,7 +16,7 @@ import { Foo } from './Entity/Foo.js';
 import { ExampleRedisModule } from '#root/ExampleRedisModule/index.js';
 import { FooResolver } from './Resolver/FooResolver.js';
 import { HealthModule } from '#root/HealthModule/HealthModule.js';
-import { buildRabbitMQConfig } from '#root/config/rabbitmq.config.js';
+import { buildRabbitMQConfig } from '#root/config/rabbitMQ.config.js';
 import { ExampleRabbitMQService } from './Service/ExampleRabbitMQService.js';
 import { FooRabbitMQResolver } from './Resolver/FooRabbitMQResolver.js';
 
