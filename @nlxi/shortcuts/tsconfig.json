@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "lib": ["esnext"],
+    "target": "esnext",
+    "module": "node16",
+    "esModuleInterop": true,
+    "moduleResolution": "node16",
+    "isolatedModules": false,
+    "sourceMap": true,
+    "outDir": "./build",
+    "baseUrl": "./src",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "pretty": true,
+    "allowJs": true,
+    "checkJs": false,
+    "paths": {
+      "#root/*": ["./*"]
+    }
+  },
+  "include": ["src/**/*", "test/**/*"],
+  "exclude": ["*/node_modules/**"]
+}

@@ -6,11 +6,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "docker-up": "docker-compose up -d",
-    "start": "npm run docker-up && npm run start -w @nlxi/*"
+    "start": "npm run docker-up && npm run start:dev -w @nlxi/app-module"
   },
   "author": "",
   "license": "ISC",
   "workspaces": [
-    "@nlxi/app-module"
+    "@nlxi/app-module",
+    "@nlxi/shortcuts"
   ]
 }

@@ -1,7 +1,6 @@
 version: '3.5'
 services:
   postgres:
-    container_name: postgres_core
     image: postgres
     environment:
       POSTGRES_USER: "pguser"
@@ -16,12 +15,11 @@ services:
     restart: unless-stopped
 
   pgadmin:
-    container_name: pgadmin_container
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: "pguser@example.com"
       PGADMIN_DEFAULT_PASSWORD: "pgadminpass"
-      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      PGADMIN_CONFIG_SERVER_MODE: "False"
     volumes:
       # sudo chown -R 5050:5050 <host_directory>
        - ./docker_data/pgadmin:/var/lib/pgadmin
@@ -69,6 +67,18 @@ services:
     image: grafana/grafana:latest
     ports:
       - "8093:3000"
+    networks:
+      - nlxi_core
+    restart: unless-stopped
+
+  shortcuts:
+    build: ./@nlxi/shortcuts
+    environment:
+      - DOCKERIZED=true
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./docker-compose.yml:/app/docker-compose.yml
     networks:
       - nlxi_core
     restart: unless-stopped
