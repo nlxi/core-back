@@ -28,6 +28,10 @@ npm run start
 ./runIn.sh build
 ```
 
+### shortcuts
+
+- open [http://localhost:8080/](http://localhost:8080/) to list docker services links
+
 ### loki
 
 - open [http://localhost:8093/](http://localhost:8093/)
